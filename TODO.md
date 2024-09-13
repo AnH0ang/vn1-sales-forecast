@@ -1,0 +1,36 @@
+- [ ] Use mlforecast instead of custom model
+- [ ] Check bias of model (does it really predict the mean, is it unbiased)
+- [ ] Remove Inventory data
+- [ ] Calculate score on sparse and dense time series separately
+- [ ] make backtesting consistent
+- [ ] Show live prediction in dashboard
+- [ ] Dashboard worst and best predictions
+- [ ] Performance by horizon
+- [ ] Replace "feat:" with "feat_"
+- [ ] Change CV Settings to more recent data
+- [ ] (Price Null -> Zero Sales) -> Encode that into the model
+- [x] Stacking of predictions with tsfeatures
+- [ ] Refactoring
+- [ ] Target scaling
+- [ ] Holiday Effects (number of freed days, Chrismas day, black friday, etc)
+- [ ] Dashboard to inspect features
+- [x] Fancy features like trend etc
+- [ ] Features engineering from past M4 winners
+- [ ] Tune hyperparameters
+    - [ ] LGBM
+    - [ ] NN
+- [x] Static Ensemble of Models (0.9 * LGBM + 0.1 LGBM Median)
+- [ ] Bring inventory into play
+- [x] !! Fix missing cutoff_date in cv_scores
+    - because of inventory filter
+- [x] LGBM median forecast
+- [x] TimeGPT as model
+    - Does not work on mac m1
+- [ ] Exogenouse variables for NN models
+- [ ] Use same training loop in cv and live pred to reduce errors
+- [ ] Error Analysis
+- [ ] Direkt Forecast is implemented incorrectly in mlforecast  
+    - static features from start date are used and not from the forecast date
+- [ ] Elite model
+  - [ ] https://github.com/functime-org/functime/blob/main/functime/forecasting/elite.py
+  - [ ] https://doordash.engineering/2023/06/20/how-doordash-built-an-ensemble-learning-model-for-time-series-forecasting/

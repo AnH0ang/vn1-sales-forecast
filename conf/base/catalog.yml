@@ -1,0 +1,20 @@
+"raw_{name}":
+  type: polars.LazyPolarsDataset
+  filepath: "data/01_raw/Phase 0 - {name}.csv"
+  file_format: csv
+  metadata:
+    kedro-viz:
+      layer: raw
+
+"primary_{name}":
+  type: polars.LazyPolarsDataset
+  filepath: "data/03_primary/{name}.parquet"
+  file_format: parquet
+  metadata:
+    kedro-viz:
+      layer: primary
+
+"{name}_data":
+  type: polars.LazyPolarsDataset
+  filepath: "data/02_intermediate/{name}.parquet"
+  file_format: parquet
