@@ -2,6 +2,11 @@
 from the Kedro defaults. For further information, including these default values, see
 https://docs.kedro.org/en/stable/kedro_project_setup/settings.html."""
 
+# Prefixes
+PRED_PREFIX = "prediction_"
+TSFEATURES_PREFIX = "tsfeatures_"
+CLASS_PREFIX = "class_"
+
 # Instantiated project hooks.
 # For example, after creating a hooks.py and defining a ProjectHooks class there, do
 # from pandas_viz.hooks import ProjectHooks
@@ -12,9 +17,9 @@ https://docs.kedro.org/en/stable/kedro_project_setup/settings.html."""
 # Installed plugins for which to disable hook auto-registration.
 # DISABLE_HOOKS_FOR_PLUGINS = ("kedro-viz",)
 
-from pathlib import Path
+from pathlib import Path  # noqa: E402
 
-from kedro_viz.integrations.kedro.sqlite_store import SQLiteStore
+from kedro_viz.integrations.kedro.sqlite_store import SQLiteStore  # noqa: E402
 
 # Class that manages storing KedroSession data.
 SESSION_STORE_CLASS = SQLiteStore

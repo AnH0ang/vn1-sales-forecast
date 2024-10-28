@@ -6,30 +6,37 @@ build-backend = "setuptools.build_meta"
 name = "vn1-sales-forecast"
 readme = { file = "README.md", content-type = "text/markdown" }
 dynamic = ["version"]
-requires-python = ">=3.11,<3.12"
+requires-python = ">=3.10,<3.11"
 dependencies = [
     "altair[all]",
+    "hierarchicalforecast",
+    "holidays",
+    "jax",
     "kedro-datasets",
     "kedro-viz",
     "kedro==0.19.8",
     "lightgbm",
-    "xgboost",
-    "pandas",
-    "polars[all]",
-    "scikit-learn",
-    "seaborn",
-    "statsforecast",
     "mlforecast",
     "neuralforecast",
+    "ray[default]",
+    "hyperopt",
+    "numpy",
+    "optax",
     "optuna",
     "optuna-dashboard",
-    "numpy",
+    "pandas",
+    "polars[all]",
+    "ruptures",
+    "scikit-learn",
+    "scikit-lego",
+    "seaborn",
+    "statsforecast",
+    "streamlit",
+    "timesfm @ git+https://github.com/google-research/timesfm.git",
     "tqdm",
     "tsfeatures",
-    "jax",
-    "optax",
-    "streamlit",
     "watchdog",
+    "xgboost",
 ]
 
 [tool.rye]
@@ -61,7 +68,7 @@ namespaces = false
 [tool.ruff]
 line-length = 100
 show-fixes = true
-target-version = "py311"
+target-version = "py310"
 
 [tool.ruff.lint]
 select = [
@@ -81,9 +88,6 @@ ignore = [
 unfixable = [
     "F401", # imported but unused
 ]
-
-[tool.ruff.format]
-skip-magic-trailing-comma = true
 
 [tool.ruff.lint.isort]
 known-first-party = ["vn1_sales_forecast"]

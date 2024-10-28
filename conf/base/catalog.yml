@@ -1,20 +1,118 @@
-"raw_{name}":
-  type: polars.LazyPolarsDataset
-  filepath: "data/01_raw/Phase 0 - {name}.csv"
+"raw_{name}_phase_{phase}":
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
+  filepath: "data/01_raw/Phase {phase} - {name}.csv"
   file_format: csv
   metadata:
     kedro-viz:
       layer: raw
 
 "primary_{name}":
-  type: polars.LazyPolarsDataset
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
   filepath: "data/03_primary/{name}.parquet"
   file_format: parquet
   metadata:
     kedro-viz:
       layer: primary
 
+"{name}_tsfeatures":
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
+  filepath: "data/04_feature/{name}_tsfeatures.parquet"
+  file_format: parquet
+  metadata:
+    kedro-viz:
+      layer: tsfeatures
+
+"{name}_classification":
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
+  filepath: "data/04_feature/{name}_classification.parquet"
+  file_format: parquet
+  metadata:
+    kedro-viz:
+      layer: analysis
+
+"{name}_partitions":
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
+  filepath: "data/04_feature/{name}_partitions.parquet"
+  file_format: parquet
+  metadata:
+    kedro-viz:
+      layer: analysis
+
+"{model}.{name}_model":
+  type: pickle.PickleDataset
+  filepath: "data/06_model/{model}.{name}_model.pkl"
+  metadata:
+    kedro-viz:
+      layer: model
+
+"{layer}_{model}.{name}_forecast":
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
+  filepath: "data/07_model_output/{layer}_{model}.{name}_forecast.parquet"
+  file_format: parquet
+  metadata:
+    kedro-viz:
+      layer: "{layer}"
+
+"{layer}_{name}_forecast":
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
+  filepath: "data/07_model_output/{layer}_{name}_forecast.parquet"
+  file_format: parquet
+  metadata:
+    kedro-viz:
+      layer: "{layer}"
+
+"{name}_forecast":
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
+  filepath: "data/07_model_output/{name}_forecast.parquet"
+  file_format: parquet
+  metadata:
+    kedro-viz:
+      layer: forecast
+
+"{layer}_{name}_scores":
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
+  filepath: "data/07_model_output/{layer}_{name}_scores.parquet"
+  file_format: parquet
+  metadata:
+    kedro-viz:
+      layer: "{layer}"
+
+"{name}_scores":
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
+  filepath: "data/07_model_output/{name}_scores.parquet"
+  file_format: parquet
+  metadata:
+    kedro-viz:
+      layer: scores
+
+"{name}_errors":
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
+  filepath: "data/07_model_output/{name}_errors.parquet"
+  file_format: parquet
+  metadata:
+    kedro-viz:
+      layer: scores
+
+"{name}_analysis":
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
+  filepath: "data/08_reporting/{name}_scores.parquet"
+  file_format: parquet
+  metadata:
+    kedro-viz:
+      layer: analysis
+
 "{name}_data":
-  type: polars.LazyPolarsDataset
+  type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
   filepath: "data/02_intermediate/{name}.parquet"
   file_format: parquet
+
+"submissions":
+  type: partitions.PartitionedDataset
+  path: data/09_submissions
+  dataset:
+    type: vn1_sales_forecast.io.dataset.LazyPolarsDataset
+    file_format: csv
+  filename_suffix: '.csv'
+  metadata:
+    kedro-viz:
+      layer: submission

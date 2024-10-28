@@ -1,3 +1,5 @@
+*.csv
+*.zip
 .vscode
 lightning_logs
 *.db
@@ -17,6 +19,8 @@ data/**
 
 # except their sub-folders
 !data/**/
+
+!data/01_raw/*
 
 # also keep all .gitkeep files
 !.gitkeep
@@ -129,8 +133,6 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# pyenv
-.python-version
 
 # celery beat schedule file
 celerybeat-schedule
@@ -139,7 +141,6 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
-.env
 .venv
 env/
 venv/

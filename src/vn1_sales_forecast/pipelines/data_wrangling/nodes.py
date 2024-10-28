@@ -1,13 +1,36 @@
 import polars as pl
 
 
-def join_into_cube(sales_wide: pl.LazyFrame, price_wide: pl.LazyFrame) -> pl.LazyFrame:
+def join_dfs(*dfs: pl.LazyFrame, name: str) -> pl.LazyFrame:
+    def to_long(df: pl.LazyFrame) -> pl.LazyFrame:
+        idx_cols = ["Client", "Warehouse", "Product"]
+        df = df.melt(id_vars=idx_cols, variable_name="date", value_name=name)
+        df = df.with_columns(pl.col(name).cast(pl.Float32))
+        return df
+
+    # Convert all dataframes to long format
+    dfs_long = [to_long(df) for df in dfs]
+
+    # Add phase number to the date column
+    dfs_long = [df.with_columns(pl.lit(i).alias("phase")) for i, df in enumerate(dfs_long)]
+
+    # Concatenate dataframes
+    return pl.concat(dfs_long)
+
+
+def join_sales_dfs(*dfs: pl.LazyFrame) -> pl.LazyFrame:
+    return join_dfs(*dfs, name="sales")
+
+
+def join_price_dfs(*dfs: pl.LazyFrame) -> pl.LazyFrame:
+    return join_dfs(*dfs, name="price")
+
+
+def join_into_cube(sales: pl.LazyFrame, price: pl.LazyFrame) -> pl.LazyFrame:
     idx_cols = ["Client", "Warehouse", "Product"]
-    sales = sales_wide.melt(id_vars=idx_cols, variable_name="date", value_name="sales")
-    price = price_wide.melt(id_vars=idx_cols, variable_name="date", value_name="price")
 
     return (
-        sales.join(price, on=[*idx_cols, "date"], how="left")
+        sales.join(price, on=[*idx_cols, "date", "phase"], how="left")
         .with_columns(
             pl.col(["sales", "price"]).cast(pl.Float32),
             pl.col("date").str.to_date(r"%Y-%m-%d"),
