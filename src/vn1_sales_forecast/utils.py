@@ -2,7 +2,7 @@ from collections.abc import Sequence
 from typing import TypeVar
 
 import polars as pl
-from polars._typing import JoinStrategy
+from polars._typing import JoinStrategy  # type: ignore
 
 T_DF = TypeVar("T_DF", pl.LazyFrame, pl.DataFrame)
 

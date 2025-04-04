@@ -10,7 +10,8 @@ from kedro.framework.project import settings
 @pytest.fixture()
 def config_loader() -> OmegaConfigLoader:
     return OmegaConfigLoader(
-        conf_source=str(Path.cwd() / settings.CONF_SOURCE), **settings.CONFIG_LOADER_ARGS
+        conf_source=str(Path.cwd() / settings.CONF_SOURCE),  # type: ignore
+        **settings.CONFIG_LOADER_ARGS,  # type: ignore
     )
 
 

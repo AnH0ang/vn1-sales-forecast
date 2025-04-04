@@ -4,5 +4,5 @@ from kedro_datasets.polars.lazy_polars_dataset import LazyPolarsDataset as _Lazy
 
 class LazyPolarsDataset(_LazyPolarsDataset):
     def preview(self) -> TablePreview:
-        d = self._load().head(10).collect().to_pandas().to_dict(orient="split")
+        d = self.load().head(10).lazy().collect().to_pandas().to_dict(orient="split")
         return TablePreview(d)

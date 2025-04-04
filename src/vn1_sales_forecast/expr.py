@@ -1,5 +1,5 @@
 import polars as pl
-from polars._typing import IntoExpr
+from polars._typing import IntoExpr  # type: ignore
 
 
 def parse_into_expr(expr: IntoExpr) -> pl.Expr:

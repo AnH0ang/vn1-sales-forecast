@@ -12,8 +12,8 @@ dependencies = [
     "hierarchicalforecast",
     "holidays",
     "jax",
-    "kedro-datasets",
-    "kedro-viz",
+    "kedro-datasets==4.1.0",
+    "kedro-viz==10.0.0",
     "kedro==0.19.8",
     "lightgbm",
     "mlforecast",
@@ -39,16 +39,8 @@ dependencies = [
     "xgboost",
 ]
 
-[tool.rye]
-dev-dependencies = [
-    "commitizen",
-    "ipykernel",
-    "pre-commit",
-    "pydoclint",
-    "pyright",
-    "ruff",
-    "pytest",
-]
+[dependency-groups]
+dev = ["commitizen", "ipykernel", "pre-commit", "pydoclint", "pyright", "pytest", "ruff"]
 
 [tool.kedro]
 package_name = "vn1_sales_forecast"
